@@ -1,4 +1,4 @@
-name: Renew Agentforce Dev Org Lease
+name: Renew Agentforce Dev Org Lease UPD1
 run-name: ${{ github.actor }} triggered dev org renewal build
 #on: [push]
 on:
