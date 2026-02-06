@@ -1,4 +1,4 @@
-name: Renew Agentforce Dev Org Lease UPD5 (20260203)
+name: Renew Agentforce Dev Org Lease UPD5 (20260206)
 run-name: ${{ github.actor }} triggered dev org renewal build
 #on: [push]
 on:
@@ -22,8 +22,14 @@ jobs:
       - name: 'Authenticate to Agentforce org'
         run: |
             echo ${{ secrets.AGENTFORCE_DEV_ORG_URL }} > ./AGENTFORCE_DEV_ORG_URL.txt
-            ls -al ./AGENTFORCE_DEV_ORG_URL.txt
+            echo ${{ secrets.AGENTFORCE2_DEV_ORG_URL }} > ./AGENTFORCE_DEV2_ORG_URL.txt
+            ls -al ./AGENTFORCE_DEV_ORG_URL.txt ./AGENTFORCE2_DEV_ORG_URL.txt
             sf org login sfdx-url -f ./AGENTFORCE_DEV_ORG_URL.txt -a AFDevOrg1Renewal -d
+            sf org login sfdx-url -f ./AGENTFORCE2_DEV_ORG_URL.txt -a AFDevOrg2Renewal -d
       - name: 'Query data'
         run: |
-            sf data query --query "select name from organization" -o AFDevOrg1Renewal
+            for ORG in AFDevOrg1Renewal AFDevOrg2Renewal
+            do
+              echo "Running query in org: $ORG"
+              sf data query --query "select name from organization" -o $ORG
+            done
