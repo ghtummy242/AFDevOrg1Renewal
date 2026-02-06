@@ -22,7 +22,7 @@ jobs:
       - name: 'Authenticate to Agentforce org'
         run: |
             echo ${{ secrets.AGENTFORCE_DEV_ORG_URL }} > ./AGENTFORCE_DEV_ORG_URL.txt
-            echo ${{ secrets.AGENTFORCE2_DEV_ORG_URL }} > ./AGENTFORCE_DEV2_ORG_URL.txt
+            echo ${{ secrets.AGENTFORCE2_DEV_ORG_URL }} > ./AGENTFORCE2_DEV_ORG_URL.txt
             ls -al ./AGENTFORCE_DEV_ORG_URL.txt ./AGENTFORCE2_DEV_ORG_URL.txt
             sf org login sfdx-url -f ./AGENTFORCE_DEV_ORG_URL.txt -a AFDevOrg1Renewal -d
             sf org login sfdx-url -f ./AGENTFORCE2_DEV_ORG_URL.txt -a AFDevOrg2Renewal -d
