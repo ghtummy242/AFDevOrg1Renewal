@@ -1,4 +1,4 @@
-name: Renew Agentforce Dev Org Lease UPD6 (20260407)
+name: Renew Agentforce Dev Org Lease UPD6 (20260408)
 run-name: ${{ github.actor }} triggered dev org renewal build
 #on: [push]
 on:
@@ -23,12 +23,16 @@ jobs:
         run: |
             echo ${{ secrets.AGENTFORCE_DEV_ORG_URL }} > ./AGENTFORCE_DEV_ORG_URL.txt
             echo ${{ secrets.AGENTFORCE2_DEV_ORG_URL }} > ./AGENTFORCE2_DEV_ORG_URL.txt
-            ls -al ./AGENTFORCE_DEV_ORG_URL.txt ./AGENTFORCE2_DEV_ORG_URL.txt
+            echo ${{ secrets.ODG_DEV_ORG_URL }} > ./ODG_DEV_ORG_URL.txt
+            echo ${{ secrets.PSD_DEV_ORG_URL }} > ./PSD_DEV_ORG_URL.txt
+            ls -al ./AGENTFORCE_DEV_ORG_URL.txt ./AGENTFORCE2_DEV_ORG_URL.txt ./ODG_DEV_ORG_URL.txt ./PSD_DEV_ORG_URL.txt
             sf org login sfdx-url -f ./AGENTFORCE_DEV_ORG_URL.txt -a AFDevOrg1Renewal -d
             sf org login sfdx-url -f ./AGENTFORCE2_DEV_ORG_URL.txt -a AFDevOrg2Renewal -d
+            sf org login sfdx-url -f ./ODG_DEV_ORG_URL.txt -a OdgDevOrgRenewal -d
+            sf org login sfdx-url -f ./PSD_DEV_ORG_URL.txt -a PsdDevOrgRenewal -d
       - name: 'Query data'
         run: |
-            for ORG in AFDevOrg1Renewal AFDevOrg2Renewal
+            for ORG in AFDevOrg1Renewal AFDevOrg2Renewal OdgDevOrgRenewal PsdDevOrgRenewal
             do
               echo "Running query in org: $ORG"
               sf data query --query "select name from organization" -o $ORG
