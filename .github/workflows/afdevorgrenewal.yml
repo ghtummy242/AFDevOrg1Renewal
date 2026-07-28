@@ -1,4 +1,4 @@
-name: Renew Agentforce Dev Org Lease UPD10 (20260722)
+name: Renew Agentforce Dev Org Lease UPD10 (20260726)
 run-name: ${{ github.actor }} triggered dev org renewal build
 #on: [push]
 on:
@@ -15,7 +15,7 @@ jobs:
           ref: main
       - uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '24'
       - name: 'Install CLI'
         run: npm install @salesforce/cli --location=global
       - run: sf --version
